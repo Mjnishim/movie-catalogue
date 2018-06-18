@@ -64,19 +64,23 @@ class AddMovieDialog extends React.Component {
               To add a movie to your collection, we need some information about
               it
             </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="title"
-              label="Movie Title"
-              value={title}
-              onChange={this.handleChange}
-              name="title"
-            />
-            <GenreSelect
-              handleChange={this.handleChange}
-              value={genre}
-            />
+            <div>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="title"
+                label="Movie Title"
+                value={title}
+                onChange={this.handleChange}
+                name="title"
+              />
+            </div>
+            <div>
+              <GenreSelect
+                handleChange={this.handleChange}
+                value={genre}
+              />
+            </div>
             <SelectActors actors={allActors} addActor={(actor)=>{this.setActors([...actors, actor])}} />
             <ActorChips actors={actors} setActors={this.setActors} />
           </DialogContent>

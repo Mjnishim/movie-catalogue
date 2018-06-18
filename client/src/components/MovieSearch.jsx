@@ -82,19 +82,23 @@ class MovieSearch extends React.Component {
                 <SelectActors actors={allActors} addActor={(actor)=>{this.setState({name: actor.name})}} />
               </DialogContent> :
               <DialogContent>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="title"
-                  label="Movie Title"
-                  value={title}
-                  onChange={this.handleChange}
-                  name="title"
-                />
-                <GenreSelect
-                  handleChange={this.handleChange}
-                  value={genre}
-                />
+                <div>
+                  <TextField
+                    autoFocus
+                    margin="dense"
+                    id="title"
+                    label="Movie Title"
+                    value={title}
+                    onChange={this.handleChange}
+                    name="title"
+                  />
+                </div>
+                <div>
+                  <GenreSelect
+                    handleChange={this.handleChange}
+                    value={genre}
+                  />
+                </div>
               </DialogContent>
             }
           <DialogActions>
