@@ -23,14 +23,14 @@ class MovieSearch extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, name: "" });
   };
 
   handleSearch = () => {
     const { title, name, genre } = this.state;
     searchMovies({ title, actor: name, genre },
       (movies) => {
-        this.setState({ open: false });
+        this.setState({ open: false, name: "" });
         this.props.setMovies(movies.movies);
       });
   };
