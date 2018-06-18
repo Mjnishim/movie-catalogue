@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { addActor } from "../Client";
 
-export default class FormDialog extends React.Component {
+class AddActor extends React.Component {
   state = {
     open: false,
     name: ""
@@ -24,7 +24,10 @@ export default class FormDialog extends React.Component {
 
   handleSave = () => {
     const { name } = this.state;
-    addActor({ name }, () => this.setState({ open: false }));
+    addActor({ name }, (actor) => {
+      this.setState({ open: false, name: "" });
+      this.props.addActor(actor.actor);
+    });
   };
 
   handleChange = event => {
@@ -34,8 +37,12 @@ export default class FormDialog extends React.Component {
   render() {
     const { name } = this.state;
     return (
-      <div>
-        <Button onClick={this.handleClickOpen}>Add Actor</Button>
+      <div style={{marginBottom: "15px", marginLeft: "15px"}}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={this.handleClickOpen}
+        >Add Actor</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -69,3 +76,5 @@ export default class FormDialog extends React.Component {
     );
   }
 }
+
+export default AddActor;

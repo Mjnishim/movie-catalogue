@@ -7,7 +7,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import GenreSelect from "./GenreSelect";
-import { addMovie } from "../Client";
+import SelectActors from "./SelectActors";
+import ActorChips from "./ActorChips";
+import { addMovie, searchActors } from "../Client";
 
 class AddMovieDialog extends React.Component {
   state = {
@@ -27,18 +29,30 @@ class AddMovieDialog extends React.Component {
 
   handleSave = () => {
     const { title, actors, genre } = this.state;
-    addMovie({ title, actors, genre }, () => this.setState({ open: false }));
+    addMovie({ title, Actors: actors, genre },
+      (movie) => {
+        this.setState({ open: false, title: "", actors: [], genre: "" });
+        this.props.addMovie(movie.movie);
+      });
   };
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+  setActors = (actors) => {
+    this.setState({ actors });
+  }
 
   render() {
     const { title, actors, genre } = this.state;
+    const {allActors} = this.props;
     return (
-      <div>
-        <Button onClick={this.handleClickOpen}>Add Movie</Button>
+      <div style={{marginBottom: "15px", marginLeft: "15px"}}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={this.handleClickOpen}
+        >Add Movie</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -63,6 +77,8 @@ class AddMovieDialog extends React.Component {
               handleChange={this.handleChange}
               value={genre}
             />
+            <SelectActors actors={allActors} addActor={(actor)=>{this.setActors([...actors, actor])}} />
+            <ActorChips actors={actors} setActors={this.setActors} />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">

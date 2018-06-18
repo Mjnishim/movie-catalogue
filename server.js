@@ -13,20 +13,20 @@ app.post("/api/movie/search", async (req, res) => {
   const genre = req.body.genre;
   let movies;
   if (actor) {
-    const actors = await Actor.findAll({
-      where: {
-        name: {
-          [Op.iLike]: `%${actor}%`
-        }
-      }
-    });
     movies = await Movie.findAll({
-      where: {
-        actsIn: actors
-      }
+      include: [
+        {
+          model: Actor,
+          as: "Actors",
+          where: {
+            name: {
+              [Op.iLike]: `%${actor}%`
+            }
+          }
+        }
+      ]
     });
-  }
-  if (title && genre) {
+  } else if (title && genre) {
     movies = await Movie.findAll({
       where: {
         [Op.and]: [
@@ -39,7 +39,13 @@ app.post("/api/movie/search", async (req, res) => {
             genre: genre
           }
         ]
-      }
+      },
+      include: [
+        {
+          model: Actor,
+          as: "Actors"
+        }
+      ]
     });
   } else if (title) {
     movies = await Movie.findAll({
@@ -47,16 +53,35 @@ app.post("/api/movie/search", async (req, res) => {
         title: {
           [Op.iLike]: `%${title}%`
         }
-      }
+      },
+      include: [
+        {
+          model: Actor,
+          as: "Actors"
+        }
+      ]
     });
   } else if (genre) {
     movies = await Movie.findAll({
       where: {
         genre
-      }
+      },
+      include: [
+        {
+          model: Actor,
+          as: "Actors"
+        }
+      ]
     });
   } else {
-    movies = await Movie.findAll();
+    movies = await Movie.findAll({
+      include: [
+        {
+          model: Actor,
+          as: "Actors"
+        }
+      ]
+    });
   }
   res.json({ movies });
   return;
@@ -64,7 +89,7 @@ app.post("/api/movie/search", async (req, res) => {
 
 app.post("/api/movie", async (req, res) => {
   const title = req.body.title;
-  const actors = req.body.actors;
+  const actors = req.body.Actors;
   const genre = req.body.genre;
   if (!title) {
     res.json({
@@ -72,21 +97,18 @@ app.post("/api/movie", async (req, res) => {
     });
     return;
   }
-  const movie = await Movie.create(
-    {
-      title: title,
-      genre: genre,
-      Actors: actors
-    },
-    {
-      include: [
-        {
-          model: Actor,
-          as: "Actors"
-        }
-      ]
+  const actorObjects = await Actor.findAll({
+    where: {
+      id: {
+        [Op.in]: actors.map(actor => actor.id)
+      }
     }
-  );
+  });
+  const movie = await Movie.create({
+    title: title,
+    genre: genre
+  });
+  await movie.setActors(actorObjects);
   res.json({ movie });
 });
 
