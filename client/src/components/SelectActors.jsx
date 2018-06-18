@@ -13,7 +13,6 @@ function renderInput(inputProps) {
 
   return (
     <TextField
-      fullWidth
       InputProps={{
         inputRef: ref,
         classes: {
@@ -85,7 +84,7 @@ const styles = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    height: 250,
+    height: 150,
   },
   suggestionsContainerOpen: {
     position: 'absolute',

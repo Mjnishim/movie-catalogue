@@ -24,6 +24,9 @@ class App extends Component {
     const { movies, actors } = this.state;
     return (
       <div className="App">
+        <header className="App-header">
+          <h1 className="App-title">Movie Catalogue</h1>
+        </header>
         <MovieSearch
           setMovies={movies => this.setState({ movies })}
           allActors={actors}

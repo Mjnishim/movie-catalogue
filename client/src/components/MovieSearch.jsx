@@ -55,7 +55,7 @@ class MovieSearch extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Search Movies</DialogTitle>
-            <div className="radio">
+            <div style={{marginLeft: "15px"}}>
               <label>
                 <input
                   type="radio"
@@ -63,10 +63,10 @@ class MovieSearch extends React.Component {
                   checked={!searchActors}
                   onChange={() => this.setState({searchActors: false, name: ""})}
                 />
-                Search by name
+                Search by name/genre
               </label>
             </div>
-            <div className="radio">
+            <div style={{marginLeft: "15px"}}>
               <label>
                 <input
                   type="radio"
