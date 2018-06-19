@@ -26,7 +26,7 @@ const GenreSelect = (props) => (
       <MenuItem value="Historical">Historical</MenuItem>
       <MenuItem value="Horror">Horror</MenuItem>
       <MenuItem value="Musical/Dance">Musical/Dance</MenuItem>
-      <MenuItem value="Romance">Sci-fi</MenuItem>
+      <MenuItem value="Romance">Romance</MenuItem>
       <MenuItem value="Sci-fi">Sci-fi</MenuItem>
       <MenuItem value="War">War</MenuItem>
       <MenuItem value="Western">Western</MenuItem>
