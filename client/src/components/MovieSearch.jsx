@@ -82,7 +82,7 @@ class MovieSearch extends React.Component {
                 <SelectActors actors={allActors} addActor={(actor)=>{this.setState({name: actor.name})}} />
               </DialogContent> :
               <DialogContent>
-                <div>
+                <div style={{marginBottom: "10px"}}>
                   <TextField
                     autoFocus
                     margin="dense"
@@ -93,10 +93,11 @@ class MovieSearch extends React.Component {
                     name="title"
                   />
                 </div>
-                <div>
+                <div style={{marginBottom: "10px"}}>
                   <GenreSelect
                     handleChange={this.handleChange}
                     value={genre}
+                    name="genre"
                   />
                 </div>
               </DialogContent>

@@ -36,7 +36,7 @@ app.post("/api/movie/search", async (req, res) => {
             }
           },
           {
-            genre: genre
+            [Op.or]: [{ genre }, { subgenre: genre }]
           }
         ]
       },
@@ -64,7 +64,7 @@ app.post("/api/movie/search", async (req, res) => {
   } else if (genre) {
     movies = await Movie.findAll({
       where: {
-        genre
+        [Op.or]: [{ genre }, { subgenre: genre }]
       },
       include: [
         {
@@ -91,6 +91,7 @@ app.post("/api/movie", async (req, res) => {
   const title = req.body.title;
   const actors = req.body.Actors;
   const genre = req.body.genre;
+  const subgenre = req.body.subgenre;
   if (!title) {
     res.json({
       error: "Missing required parameter `title`"
@@ -106,7 +107,8 @@ app.post("/api/movie", async (req, res) => {
   });
   const movie = await Movie.create({
     title: title,
-    genre: genre
+    genre: genre,
+    subgenre: subgenre
   });
   await movie.setActors(actorObjects);
   res.json({ movie });

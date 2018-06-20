@@ -7,6 +7,7 @@ function DisplayMovies(props) {
     <tr key={idx}>
       <td>{movie.title}</td>
       <td>{movie.genre}</td>
+      <td>{movie.subgenre}</td>
     </tr>
   ));
 
@@ -21,6 +22,7 @@ function DisplayMovies(props) {
         <tr>
           <th>Title</th>
           <th>Genre</th>
+          <th>Subgenre</th>
         </tr>
       </thead>
       <tbody>

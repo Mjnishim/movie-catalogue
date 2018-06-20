@@ -6,13 +6,13 @@ import FormControl from "@material-ui/core/FormControl";
 
 const GenreSelect = (props) => (
   <FormControl style={{ minWidth: "120px" }}>
-    <InputLabel htmlFor="genre-simple">Genre</InputLabel>
+    <InputLabel htmlFor="genre-simple">{props.title || "Genre"}</InputLabel>
     <Select
       value={props.value}
       onChange={props.handleChange}
       inputProps={{
-        name: "genre",
-        id: "genre-simple"
+        name: props.name,
+        id: `${props.name}-simple`
       }}
     >
       <MenuItem value="">

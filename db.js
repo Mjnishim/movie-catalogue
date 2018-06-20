@@ -33,6 +33,9 @@ const Movie = sequelize.define("movie", {
   },
   genre: {
     type: Sequelize.STRING
+  },
+  subgenre: {
+    type: Sequelize.STRING
   }
 });
 

@@ -16,7 +16,8 @@ class AddMovieDialog extends React.Component {
     open: false,
     title: "",
     actors: [],
-    genre: ""
+    genre: "",
+    subgenre: ""
   };
 
   handleClickOpen = () => {
@@ -28,10 +29,15 @@ class AddMovieDialog extends React.Component {
   };
 
   handleSave = () => {
-    const { title, actors, genre } = this.state;
-    addMovie({ title, Actors: actors, genre },
+    const { title, actors, genre, subgenre } = this.state;
+    addMovie({ title, Actors: actors, genre, subgenre },
       (movie) => {
-        this.setState({ open: false, title: "", actors: [], genre: "" });
+        this.setState({
+          open: false,
+          title: "",
+          actors: [],
+          genre: "",
+          subgenre: "" });
         this.props.addMovie(movie.movie);
       });
   };
@@ -44,7 +50,7 @@ class AddMovieDialog extends React.Component {
   }
 
   render() {
-    const { title, actors, genre } = this.state;
+    const { title, actors, genre, subgenre } = this.state;
     const {allActors} = this.props;
     return (
       <div style={{marginBottom: "15px", marginLeft: "15px"}}>
@@ -64,7 +70,7 @@ class AddMovieDialog extends React.Component {
               To add a movie to your collection, we need some information about
               it
             </DialogContentText>
-            <div>
+            <div style={{marginBottom: "10px"}}>
               <TextField
                 autoFocus
                 margin="dense"
@@ -75,10 +81,19 @@ class AddMovieDialog extends React.Component {
                 name="title"
               />
             </div>
-            <div>
+            <div style={{marginBottom: "10px"}}>
               <GenreSelect
                 handleChange={this.handleChange}
                 value={genre}
+                name="genre"
+              />
+            </div>
+            <div style={{marginBottom: "10px"}}>
+              <GenreSelect
+                handleChange={this.handleChange}
+                title="Subgenre"
+                name="subgenre"
+                value={subgenre}
               />
             </div>
             <SelectActors actors={allActors} addActor={(actor)=>{this.setActors([...actors, actor])}} />
